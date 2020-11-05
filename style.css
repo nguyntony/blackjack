@@ -1,0 +1,75 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+.window {
+    display: flex;
+    width: 100vw;
+    height: 100vh;
+    border: 10px solid red;
+    justify-content: center;
+    align-items: center;
+}
+
+.game-container {
+    width: 75vw;
+    height: 75vh;
+    border: 10px solid black;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 15% 2fr 15%;
+}
+
+.game-container div {
+    border: 1px solid red;
+}
+
+.top {
+    grid-column: 1/3;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.bottom {
+    grid-column: 1/3;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.bottom button {
+    margin: 0px 15px;
+}
+
+.player {
+    display: flex;
+    flex-direction: column;
+    flex: 1; 
+    text-align: center;
+}
+
+
+.dealer {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    text-align: center;
+}
+
+#player-hand {
+    border: 2px solid blue;
+    flex: 1;
+    padding-top: 10px;
+}
+
+#dealer-hand {
+    border: 2px solid blue;
+    flex: 1;
+}
+
+img {
+    height: 170px;
+    padding: 0px 5px;
+}
