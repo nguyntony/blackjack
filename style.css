@@ -43,7 +43,7 @@
     margin: 0px 15px;
 }
 
-.player {
+.player-side {
     display: flex;
     flex-direction: column;
     flex: 1; 
@@ -51,22 +51,23 @@
 }
 
 
-.dealer {
+.dealer-side {
     display: flex;
     flex-direction: column;
     flex: 1;
     text-align: center;
 }
 
-#player-hand {
+#player {
     border: 2px solid blue;
     flex: 1;
     padding-top: 10px;
 }
 
-#dealer-hand {
+#dealer {
     border: 2px solid blue;
     flex: 1;
+    padding-top: 10px;
 }
 
 img {
