@@ -1,28 +1,22 @@
-// function hit() {
-//     // select player hand
-//     let playerHand = document.querySelector("#player-hand")
-
-//     // append card
-
-
-//     // create a "card" with an img tag
-//     let card = document.createElement("img")
-//     // set the src attribute with a card location 
-//     card.src = "./deck/10_of_clubs.png"
-
-//     // now we append
-//     playerHand.append(card)
-
-
-// }
-
-// const hitButton = document.querySelector("#hit")
-// hitButton.addEventListener("click", hit)
-
-
-// creating the deck 
 let suits = ["spades", "diamonds", "clubs", "hearts"];
 let values = ["ace", "2", "3", "4", "5", "6", "7", "8", "9", "10", "jack", "queen", "king"]
+let deck = createDeck()
+let players = [
+    {
+        name: "Player",
+        hand: []
+    },
+    {
+        name: "Dealer",
+        hand: []
+    }
+]
+const dealButton = document.querySelector("#deal")
+let playerScoreButton = document.querySelector(".player-score")
+let dealerScoreButton = document.querySelector(".dealer-score")
+let playerScore = 0;
+let dealerScore = 0;
+
 
 function createDeck() {
     let deckInfo = new Array();
@@ -59,7 +53,7 @@ function createDeck() {
     return deckInfo;
 }
 // this function will return an array of objects but we need to assign that to variable so we can access that information later. 
-let deck = createDeck()
+
 // console.log("creation")
 // console.log(deck)
 
@@ -84,62 +78,6 @@ function shuffle(deck) {
     }
 }
 
-// shuffle(deck)
-// console.log(shuffle)
-// console.log(deck)
-
-// function makeDeckImage(deck) {
-//     document.getElementById("deck").innerHTML = "";
-
-//     for (let i = 0; i < deck.length; i++) {
-//         let card = document.createElement("div");
-//         let icon = "";
-//         if (deck[i].Suit == "hearts") {
-//             icon = "?";
-//         } else if (deck[i].Suit == "spades") {
-//             icon = "?";
-//         } else if (deck[i].Suit == "diamonds") {
-//             icon = "?";
-//         } else {
-//             icon = "?";
-//         }
-
-//         card.innerHTML = deck[i].Value + "" + icon;
-//         card.className = "card";
-//         document.getElementById("deck").appendChild(card);
-//     }
-// }
-
-
-// deck.forEach(function (card) {
-//     console.log(card.imgTag)
-// })
-// let test = "10_of_hearts.png";
-// let card = document.createElement("img")
-// let playerHand = document.querySelector("#player-hand")
-// card.src = "./deck/" + test;
-
-// playerHand.append(card)
-
-let players = [
-    {
-        name: "Player",
-        hand: []
-    },
-    {
-        name: "Dealer",
-        hand: []
-    }
-]
-
-
-
-
-
-const dealButton = document.querySelector("#deal")
-let playerScore = document.querySelector(".player-score")
-let dealerScore = document.querySelector(".dealer-score")
-
 
 function deal() {
     shuffle(deck)
@@ -151,6 +89,7 @@ function deal() {
                 players[j].hand.push(card);
             }
         }
+        updateScore();
 
         let player = document.querySelector("#player");
         players[0].hand.forEach(function (playerCard) {
@@ -178,18 +117,36 @@ function deal() {
         for (let i = 0; i < 2; i++) {
             for (card in players[i].hand) {
                 deck.push(players[i].hand[card])
-                delete players[i].hand[card]
             }
+            players[i].hand = [];
         }
+        playerScoreButton.innerText = 0;
+        dealerScoreButton.innerText = 0;
+        playerScore = 0;
+        dealerScore = 0;
         dealButton.innerText = "play"
     }
 }
-dealButton.addEventListener("click", deal)
 
 
 function updateScore() {
+    for (let i = 0; i < 2; i++) {
+        for (let j = 0; j < players[i].hand.length; j++) {
+            // console.log(players[i].hand[j].value)
 
+            if (i == 0) {
+                playerScore += Number(players[0].hand[j].value)
+            } else if (i == 1) {
+                dealerScore += Number(players[1].hand[j].value)
+            }
+        }
+    }
+    playerScoreButton.innerText = playerScore;
+    dealerScoreButton.innerText = dealerScore;
 }
+
+
+dealButton.addEventListener("click", deal)
 
 
 function hit() {
