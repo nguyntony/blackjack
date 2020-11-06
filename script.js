@@ -1,20 +1,35 @@
+const player = document.querySelector("#player")
+
+// Player Scores
+
+const playerScore = document.querySelector("#player-score")
+
+
+// Hit button
+const hitButton = document.querySelector("#hit")
+
 function hit() {
-    // select player hand
-    let playerHand = document.querySelector("#player-hand")
-
-    // append card
-
-
-    // create a "card" with an img tag
     let card = document.createElement("img")
-    // set the src attribute with a card location 
+
     card.src = "./deck/10_of_clubs.png"
 
-    // now we append
-    playerHand.append(card)
-
-
+    player.append(card)
+    console.log(card)
 }
 
-const hitButton = document.querySelector("#hit")
 hitButton.addEventListener("click", hit)
+
+// Reset button
+
+const resetButton = document.querySelector("#reset")
+
+function reset() {
+    // playerHand.style.display = "none"
+    fullHand = document.querySelectorAll("#player img")
+
+    for (i = 0; i < fullHand.length; i++) {
+        fullHand[i].remove();
+    }
+}
+
+resetButton.addEventListener("click", reset)
