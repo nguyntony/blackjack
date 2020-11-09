@@ -6,57 +6,43 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Blackjack</title>
     <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Alfa+Slab+One&display=swap" rel="stylesheet">
 </head>
 
 <body>
+
     <section class="window">
         <!-- This will be the container that will center the game. -->
         <div class="game-container">
             <!-- this is the game container -->
+
             <div class="top">
                 <!-- play/deal -->
-                <h1>BlackJack</h1>
+                <h1>Blackjack</h1>
             </div>
             <div class="player-side">
                 <!-- player view -->
-                <h2>player: <span class="player-score">0</span></h2>
+                <h2>Player: <span class="player-score">0</span></h2>
                 <div id="player">
-                    <!-- cards go here -->
-                    <!-- <img src="./deck/10_of_clubs.png" alt=""> -->
-                    <!-- <img src="./deck/10_of_diamonds.png" alt=""> -->
-
-
-
+                    <!-- pcards go here -->
                 </div>
             </div>
             <div class="dealer-side">
                 <!-- dealer view -->
-                <h2>dealer: <span class="dealer-score">0</span></h2>
+                <h2>Dealer: <span class="dealer-score">0</span></h2>
                 <div id="dealer">
-                    <!-- cards go here -->
-
-
-
-
+                    <!-- dcards go here -->
                 </div>
             </div>
             <div class="bottom">
                 <!-- more options -->
                 <button id="deal">play</button>
                 <button id="hit">hit</button>
-                <button>stand</button>
+                <button id="stand">stand</button>
                 <!-- <button id="reset">reset</button> -->
             </div>
         </div>
     </section>
-
-    <section id="deck"></section>
-
-
-
-
-
-
 
     <script src="script.js"></script>
 </body>
