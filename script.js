@@ -1,16 +1,6 @@
 let suits = ["spades", "diamonds", "clubs", "hearts"];
 let values = ["ace", "2", "3", "4", "5", "6", "7", "8", "9", "10", "jack", "queen", "king"]
 let deck = createDeck()
-let players = [
-    {
-        name: "Player",
-        hand: []
-    },
-    {
-        name: "Dealer",
-        hand: []
-    }
-]
 const dealButton = document.querySelector("#deal")
 const standButton = document.querySelector("#stand")
 let playerScoreButton = document.querySelector(".player-score")
@@ -23,23 +13,18 @@ let playerScore = 0;
 let dealerScore = 0;
 let gameStart = false
 let dealerSecondCardImgTag = "";
-// let dealerSecondCard = document.querySelector(".dealer-second-card")
 let dcardFaceDown = document.createElement("img");
 dcardFaceDown.classList.add("dealer-second-card");
-
-// let gameMessageModal = document.querySelector("#game-message-outcome")
-
-// let modalBtn = document.querySelector(".modal-btn")
-// let modalBg = document.querySelector(".modal-bg")
-
-// modalBtn.addEventListener("click", function () {
-//     modalBg.classList.add("bg-active")
-// })
-
-// let modalClose = document.querySelector(".modal-close")
-// modalClose.addEventListener("click", function () {
-//     modalBg.classList.remove("bg-active")
-// })
+let players = [
+    {
+        name: "Player",
+        hand: []
+    },
+    {
+        name: "Dealer",
+        hand: []
+    }
+]
 
 
 
@@ -80,8 +65,8 @@ function createDeck() {
 }
 // this function will return an array of objects but we need to assign that to variable so we can access that information later. 
 
-// console.log("creation")
-// console.log(deck)
+
+
 
 
 function shuffle(deck) {
@@ -107,18 +92,13 @@ function shuffle(deck) {
 const updateScores = {
     updateHTMLScore() {
         playerScoreButton.innerText = playerScore;
-        // if (players[1].hand.length == 2) {
-        //     dealerScoreButton.innerText = players[1].hand[0].value
-        // } else { dealerScoreButton.innerText = dealerScore; }
         dealerScoreButton.innerText = players[1].hand[0].value
-
     },
     updateCounterScore() {
         playerScore = 0
         dealerScore = 0
         for (let i = 0; i < 2; i++) {
             for (let j = 0; j < players[i].hand.length; j++) {
-                // console.log(players[i].hand[j].value)
                 if (i == 0) {
                     playerScore += Number(players[0].hand[j].value)
                 } else if (i == 1) {
@@ -132,7 +112,6 @@ const updateScores = {
         players[which].hand.sort(function (a, b) {
             return b.value - a.value
         })
-
         if (which == Number(0)) {
             if ((playerScore > 21) && (players[0].hand[0].value == Number(11))) {
                 players[0].hand[0].value = 1;
@@ -148,14 +127,12 @@ const updateScores = {
     dealHitEndCondition() {
         gameContainer.append(gameMessage)
         if ((playerScore == 21) && (dealerScore == 21)) {
-            // console.log("Huh. What are the oods. Both getting 21.")
             gameMessage.innerText = "TIE"
             gameMessage.classList.add("game-message")
             dealerScoreButton.innerText = dealerScore;
             gameStart = false;
             updateScores.flipDealerSecond();
         } else if ((playerScore == 21) && (players[0].hand.length == 2)) {
-            // console.log("Whoa! 21 right off the bat!")
             gameMessage.innerText = "YOU WIN"
             gameMessage.classList.add("game-message")
             dealerScoreButton.innerText = dealerScore;
@@ -163,7 +140,6 @@ const updateScores = {
             updateScores.flipDealerSecond();
 
         } else if (playerScore > 21) {
-            // console.log("You bust..")
             gameMessage.innerText = "YOU LOSE"
             gameMessage.classList.add("game-message")
             gameStart = false;
@@ -174,54 +150,39 @@ const updateScores = {
     standEndCondition() {
         if (playerScore == 21 && dealerScore == 21) {
             gameMessage.innerText = "YOU WIN"
-            // gameMessage.classList.add("game-message")
         } else if (dealerScore > 21) {
-            // console.log("T You win!")
             gameMessage.innerText = "YOU WIN"
-            // gameMessage.classList.add("game-message")
         } else if (playerScore == dealerScore) {
-            // console.log("You tied...")
             gameMessage.innerText = "TIE"
-            // gameMessage.classList.add("game-message")
         } else if (playerScore > dealerScore) {
-            // console.log("You win!")
             gameMessage.innerText = "YOU WIN"
-            // gameMessage.classList.add("game-message")
         } else if (playerScore < dealerScore) {
-            // console.log("You lost...")
             gameMessage.innerText = "YOU LOSE"
-            // gameMessage.classList.add("game-message")
         }
         gameMessage.classList.add("game-message")
     },
     flipDealerSecond() {
-        // let dealerSecondCard = document.querySelector(".dealer-second-card")
-        // dealerSecondCard.src = dealerSecondCardImgTag
         dcardFaceDown.src = dealerSecondCardImgTag
-
-        // "./deck/" + players[1].hand[1].imgTag
     }
 }
 
 
 
 
-// -------- Deal Button -------------
 
+// -------- Deal Button -------------
 function deal() {
     shuffle(deck)
     if (dealButton.innerText == "PLAY") {
         for (let i = 0; i < 2; i++) {
             for (let j = 0; j < players.length; j++) {
-                // do a pause?
                 let card = deck.pop();
-
                 players[j].hand.push(card);
-
             }
         }
         let dealer = document.querySelector("#dealer");
         let dcard = document.createElement("img");
+
 
         // Imgs for player cards
         players[0].hand.forEach(function (playerCard) {
@@ -230,15 +191,14 @@ function deal() {
             player.append(pcard)
         })
 
+
         // First card image for dealer
         dcard.src = "./deck/" + players[1].hand[0].imgTag
         dealerSecondCardImgTag = "./deck/" + players[1].hand[1].imgTag
         dealer.append(dcard)
-        // let dcardFaceDown = document.createElement("img");
         dcardFaceDown.src = "./deck/back_face.png"
-        // Just needs to change this. ^
-        // dcardFaceDown.classList.add("dealer-second-card")
         dealer.append(dcardFaceDown)
+
 
         // Score updater
         updateScores.checkA(0);
@@ -249,20 +209,19 @@ function deal() {
         updateScores.dealHitEndCondition();
 
 
+
+
         // Changes deal to restart
         dealButton.innerText = "RESTART"
-
     } else if (dealButton.innerText == "RESTART") {
         let playerCardImg = document.querySelectorAll("#player img")
         let dealerCardImg = document.querySelectorAll("#dealer img")
-
         for (let i = 0; i < playerCardImg.length; i++) {
             playerCardImg[i].remove();
         }
         for (let i = 0; i < dealerCardImg.length; i++) {
             dealerCardImg[i].remove();
         }
-
         for (let i = 0; i < 2; i++) {
             for (card in players[i].hand) {
                 deck.push(players[i].hand[card])
@@ -274,30 +233,28 @@ function deal() {
         playerScore = 0;
         dealerScore = 0;
         dealButton.innerText = "PLAY"
-
         deck.forEach(function (card) {
             if (card.face == "ace") {
                 card.value = 11
             }
         })
-
         gameMessage.remove();
         gameMessage.classList.remove("game-message");
         gameMessage.innerText = "";
 
         gameStart = false
-
     }
 }
-
 dealButton.addEventListener("click", deal)
+
+
+
 
 
 // --------- Hit Button ----------
 function hit() {
     if (gameStart) {
         let card = deck.pop();
-        // let player = document.querySelector("#player");
         let pcard = document.createElement("img");
         players[0].hand.push(card);
         pcard.src = "./deck/" + card.imgTag;
@@ -307,12 +264,14 @@ function hit() {
         updateScores.dealHitEndCondition()
     }
 }
-
 const hitButton = document.querySelector('#hit')
 hitButton.addEventListener("click", hit)
 
-// ----------- Stand Button -----------
 
+
+
+
+// ----------- Stand Button -----------
 function stand() {
     if (gameStart) {
         dealerScoreButton.innerText = dealerScore;
@@ -322,7 +281,6 @@ function stand() {
         while (dealerScore <= 15) {
 
             let card = deck.pop();
-            // let player = document.querySelector("#player");
             let dcard = document.createElement("img");
             players[1].hand.push(card);
             dcard.src = "./deck/" + card.imgTag;
@@ -338,29 +296,4 @@ function stand() {
     }
 
 }
-
 standButton.addEventListener("click", stand)
-
-// -------------------------------
-
-
-// const resetButton = document.querySelector("#reset")
-// function reset() {
-//     let playerCardImg = document.querySelectorAll("#player img")
-//     let dealerCardImg = document.querySelectorAll("#dealer img")
-
-//     for (let i = 0; i < playerCardImg.length; i++) {
-//         playerCardImg[i].remove();
-//         dealerCardImg[i].remove();
-//     }
-
-//     for (let i = 0; i < 2; i++) {
-//         for (card in players[i].hand) {
-//             deck.push(players[i].hand[card])
-//             delete players[i].hand[card]
-//         }
-//     }
-//     // console.log(deck.length)
-// }
-// resetButton.addEventListener("click", reset)
-
